@@ -1,41 +1,40 @@
+_ns_help() {
+	echo "Usage: ns [OPTIONS] [NEOVIM_ARGS]"
+	echo "Opens Neovim with a config directory matching the pattern"
+	echo ""
+	echo "Options:"
+	echo "  -h, --help              Display this help message"
+	echo "  -v, --version           Display script version information"
+	echo "  -s, --skip-selection    Skip selection of a config directory"
+	echo ""
+	echo "Config:"
+	echo "NEOVIM_SWITCH_PATTERN - The pattern to search for configs (default *-nvim)"
+	echo "NVIM_APPNAME - The name of the config to open (default $HOME/.config/nvim)"
+	echo "NEOVIM_SWITCH_SKIP_SELECTION - Skip selection of a config directory (default false)"
+	echo ""
+	echo "Example:"
+	echo "  ns -h"
+	echo "  ns -v"
+	echo "  ns --skip-selection"
+	echo "  ns -s"
+}
+
+_ns_has_argument() {
+	[[ ("$1" == *=* && -n ${1#*=}) || (! -z "$2" && "$2" != -*) ]]
+}
+
+_ns_extract_argument() {
+	echo "${2:-${1#*=}}"
+}
+
 # ns - Neovim Switch
 #
 # Opens Neovim with a config directory matching the pattern
 ns() {
-	_ns_help() {
-		echo "Usage: ns [OPTIONS] [NEOVIM_ARGS]"
-		echo "Opens Neovim with a config directory matching the pattern"
-		echo ""
-		echo "Options:"
-		echo "  -h, --help              Display this help message"
-		echo "  -v, --version           Display script version information"
-		echo "  -s, --skip-selection    Skip selection of a config directory"
-		echo ""
-		echo "Config:"
-		echo "NEOVIM_SWITCH_PATTERN - The pattern to search for configs (default *-nvim)"
-		echo "NEOVIM_SWITCH_BASE_DIR - The base directory to search for configs (default $HOME/.config)"
-		echo "NVIM_APPNAME - The name of the config to open (default $HOME/.config/nvim)"
-		echo "NEOVIM_SWITCH_SKIP_SELECTION - Skip selection of a config directory (default false)"
-		echo ""
-		echo "Example:"
-		echo "  ns -h"
-		echo "  ns -v"
-		echo "  ns --skip-selection"
-		echo "  ns -s"
-	}
-
-	_ns_has_argument() {
-		[[ ("$1" == *=* && -n ${1#*=}) || (! -z "$2" && "$2" != -*) ]]
-	}
-
-	_ns_extract_argument() {
-		echo "${2:-${1#*=}}"
-	}
-
 	local version="v0.1"
 
 	local pattern="${NEOVIM_SWITCH_PATTERN:-*-nvim}"
-	local base_dir="${NEOVIM_SWITCH_BASE_DIR:-$HOME/.config}"
+	local base_dir="$HOME/.config"
 	local default="${NVIM_APPNAME:-$HOME/.config/nvim}"
 	local skip_selection="${NEOVIM_SWITCH_SKIP_SELECTION:-false}"
 	local arguments=$@
