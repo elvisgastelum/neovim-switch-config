@@ -8,6 +8,6 @@ To use it on [Zap](https://www.zapzsh.org/) just put:
 > Add this to the **end** of your config file (usually `~/.zshrc`):
 >
 > ```zsh
-> plug "elvisgastelum/zoxide-zsh"
+> plug "elvisgastelum/neovim-switch-config"
 > ```
 
